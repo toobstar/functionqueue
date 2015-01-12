@@ -13,21 +13,18 @@ var FunctionQueue = function(maxCallsPerPeriod, periodLengthSeconds) {
 FunctionQueue.prototype = {
     maxCallsPerPeriod: 0,
 
-    scheduleFn: function(callbackFn, callbackArgs, callbackWhenDone) {
+    scheduleFn: function(callbackFn, callbackArgs) {
         var self = this;
-        self.fnQueue.push(self.prepFn(callbackFn, self, callbackArgs, callbackWhenDone));
+        self.fnQueue.push(self.prepFn(callbackFn, self, callbackArgs));
         if (self.started == false) {
             self.started = true;
             self.run();
         }
     },
 
-    prepFn: function(fn, context, params, callbackWhenDone) {
+    prepFn: function(fn, context, params) {
         return function() {
             fn.apply(context, params); // trigger call of named function "fn"
-            if (callbackWhenDone) {
-                callbackWhenDone();
-            }
         };
     },
 
