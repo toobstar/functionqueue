@@ -1,4 +1,4 @@
-Scapegoat
+FunctionQueue
 =========
 
 A small library providing utility methods to `escape` and `unescape` HTML entities
@@ -30,4 +30,4 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
 
-* 1.0.0 Initial release
+* 0.0.1 Initial release

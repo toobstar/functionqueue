@@ -1,6 +1,6 @@
 {
   "name": "functionqueue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "a smart container for managing functions that must be called according to some rules",
   "main": "index.js",
   "scripts": {
