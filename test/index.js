@@ -1,7 +1,7 @@
 var should = require('chai').should();
 
 var FunctionQueue = require('../index');
-var fnQ = new FunctionQueue(3, 7, 2); // maxCallsPerPeriod, periodLengthSeconds, maxFrequency
+var fnQ = new FunctionQueue(3, 7, 2, "q-name"); // maxCallsPerPeriod, periodLengthSeconds, maxFrequency
 
 var someFunction = function(str) {
     console.log('a test function with param ' + str);

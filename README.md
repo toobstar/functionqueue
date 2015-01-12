@@ -16,6 +16,13 @@ A small library providing utility methods to queue and rate limit JavaScript fun
 
   fnQ.scheduleFn(someFunction, ["param1"]);
 
+  Complete constructor args:
+    maxCallsPerPeriod
+    periodLengthSeconds (period over which max calls checked - default 60s)
+    maxFrequency (call no more than every X seconds - default 5s)
+    queueName (enables debug logging)
+
+
 ## Tests
 
   npm test
@@ -23,4 +30,4 @@ A small library providing utility methods to queue and rate limit JavaScript fun
 
 ## Release History
 
-* 0.0.7 Initial release
+* 0.0.8 Initial release
