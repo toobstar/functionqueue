@@ -1,7 +1,12 @@
 
 var FunctionQueue = function(maxCallsPerPeriod, periodLengthSeconds) {
     this.maxCallsPerPeriod = maxCallsPerPeriod;
-    this.periodLengthSeconds = periodLengthSeconds;
+    if (periodLengthSeconds) {
+        this.periodLengthSeconds = 60;
+    }
+    else {
+        this.periodLengthSeconds = periodLengthSeconds;
+    }
     this.callsThisPeriod = 0;
     this.totalCalls = 0;
     this.secondsThisPeriod = 0;
@@ -30,7 +35,7 @@ FunctionQueue.prototype = {
 
     queueSize: function() {
         var self = this;
-        //console.log('queueSize',self.fnQueue.length);
+        console.log('queueSize',self.fnQueue.length);
         return self.fnQueue.length;
     },
 
@@ -43,7 +48,7 @@ FunctionQueue.prototype = {
                 self.secondsThisPeriod = 0;
                 self.callsThisPeriod = 0;
             }
-            //console.log('running secondsThisPeriod ' + self.secondsThisPeriod + ' callsThisPeriod ' + self.callsThisPeriod + ' maxCallsPerPeriod ' + self.maxCallsPerPeriod + ' totalCalls ' + self.totalCalls);
+            console.log('running secondsThisPeriod ' + self.secondsThisPeriod + ' callsThisPeriod ' + self.callsThisPeriod + ' maxCallsPerPeriod ' + self.maxCallsPerPeriod + ' totalCalls ' + self.totalCalls);
             if (self.fnQueue.length > 0) {
                 if (self.callsThisPeriod < self.maxCallsPerPeriod) {
                     self.callsThisPeriod++;
