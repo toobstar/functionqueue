@@ -1,48 +1,35 @@
-var should = require('chai').should(),
-    scapegoat = require('../index'),
-    escape = scapegoat.escape,
-    unescape = scapegoat.unescape;
+var should = require('chai').should();
 
-describe('#escape', function() {
-  it('converts & into &amp;', function() {
-    escape('&').should.equal('&amp;');
-  });
+var FunctionQueue = require('../index');
+var fnQ = new FunctionQueue(3, 7);
 
-  it('converts " into &quot;', function() {
-    escape('"').should.equal('&quot;');
-  });
+var someFunction = function(str) {
+    console.log('a test function with param ' + str);
+}
 
-  it('converts \' into &#39;', function() {
-    escape('\'').should.equal('&#39;');
-  });
+describe('#scheduleFn', function() {
+  it('schedules a function', function(done) {
+      this.timeout(20000); // allow 20s to complete (override default 2s timeout)
 
-  it('converts < into &lt;', function() {
-    escape('<').should.equal('&lt;');
-  });
+      fnQ.scheduleFn(someFunction, ["param1"]);
+      fnQ.scheduleFn(someFunction, ["param2"]);
+      fnQ.scheduleFn(someFunction, ["param3"]);
+      fnQ.scheduleFn(someFunction, ["param4"]);
+      fnQ.scheduleFn(someFunction, ["param5"]);
+      console.log("setup done");
 
-  it('converts > into &gt;', function() {
-    escape('>').should.equal('&gt;');
-  });
-});
+      fnQ.queueSize().should.be.above(4);
+      console.log("queueSize good");
 
-describe('#unescape', function() {
-  it('converts &amp; into &', function() {
-    unescape('&amp;').should.equal('&');
-  });
+      setTimeout(function() {
+          if (fnQ.queueSize() == 0) {
+              done();
+          }
+      }, 15000); // after 15s check queue is zero length
 
-  it('converts &quot; into "', function() {
-    unescape('&quot;').should.equal('"');
-  });
-
-  it('converts &#39; into \'', function() {
-    unescape('&#39;').should.equal('\'');
-  });
-
-  it('converts &lt; into <', function() {
-    unescape('&lt;').should.equal('<');
-  });
-
-  it('converts &gt; into >', function() {
-    unescape('&gt;').should.equal('>');
   });
 });
+
+
+
+

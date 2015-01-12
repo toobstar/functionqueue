@@ -1,33 +1,23 @@
 FunctionQueue
 =========
 
-A small library providing utility methods to `escape` and `unescape` HTML entities
+A small library providing utility methods to queue and rate limit JavaScript functions.
 
 ## Installation
 
-  npm install scapegoat --save
+  npm install functionqueue
 
 ## Usage
 
-  var scapegoat = require('scapegoat')
-      escape = scapegoat.escape,
-      unescape = scapegoat.unescape;
-
-  var html = '<h1>Hello World</h1>',
-      escaped = escape(html),
-      unescaped = unescape(escaped);
-
-  console.log('html', html, 'escaped', escaped, 'unescaped', unescaped);
+  var FunctionQueue = require('FunctionQueue');
+  var fnQ = new FunctionQueue(3, 7); // max 3 calls per 7 seconds
+  fnQ.scheduleFn(someFunction, ["param1"]);
 
 ## Tests
 
   npm test
 
-## Contributing
-
-In lieu of a formal styleguide, take care to maintain the existing coding style.
-Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
 
-* 0.0.1 Initial release
+* 0.0.2 Initial release
