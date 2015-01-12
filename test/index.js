@@ -9,7 +9,7 @@ var someFunction = function(str) {
 
 describe('#scheduleFn', function() {
   it('schedules a function', function(done) {
-      this.timeout(15000); // allow 20s to complete (override default 2s timeout)
+      this.timeout(25000); // allow 20s to complete (override default 2s timeout)
 
       fnQ.scheduleFn(someFunction, ["param1"]);
       fnQ.scheduleFn(someFunction, ["param2"]);
@@ -40,7 +40,7 @@ describe('#scheduleFn', function() {
           if (fnQ.queueSize() == 0) {
               done();
           }
-      }, 12000); // after 15s check queue is zero length
+      }, 20000); // after 15s check queue is zero length
 
   });
 });
