@@ -9,7 +9,7 @@ A small library providing utility methods to queue and rate limit JavaScript fun
 
 ## Usage
 
-  var FunctionQueue = require('FunctionQueue');
+  var FunctionQueue = require('functionqueue');
 
   // max 3 calls per 7 seconds
   var fnQ = new FunctionQueue(3, 7);
