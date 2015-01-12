@@ -55,16 +55,17 @@ FunctionQueue.prototype = {
                 self.secondsThisPeriod = 0;
                 self.callsThisPeriod = 0;
             }
-            console.log('running -- secondsThisPeriod ' + self.secondsThisPeriod + ' callsThisPeriod ' + self.callsThisPeriod);
-            console.log('running -- maxCallsPerPeriod ' + self.maxCallsPerPeriod + ' totalCalls ' + self.totalCalls);
-            console.log('running -- earliestNextCall ' + self.earliestNextCall + ' periodLengthSeconds ' + self.periodLengthSeconds);
-            console.log('running -- queue: ' + self.fnQueue.length);
             console.log('---------------- ');
+            console.log('checking -- secondsThisPeriod ' + self.secondsThisPeriod + ' callsThisPeriod ' + self.callsThisPeriod);
+            console.log('checking -- maxCallsPerPeriod ' + self.maxCallsPerPeriod + ' totalCalls ' + self.totalCalls);
+            console.log('checking -- earliestNextCall ' + self.earliestNextCall + ' periodLengthSeconds ' + self.periodLengthSeconds);
+            console.log('checking -- queue: ' + self.fnQueue.length);
             if (self.fnQueue.length > 0) {
                 if (self.callsThisPeriod < self.maxCallsPerPeriod && self.secondsThisPeriod < self.earliestNextCall) {
                     self.callsThisPeriod++;
                     self.totalCalls++;
                     self.earliestNextCall = self.secondsThisPeriod + self.maxFrequency;
+                    console.log('running -- queue: ' + self.fnQueue.length);
                     (self.fnQueue.shift())();
                 }
             }
