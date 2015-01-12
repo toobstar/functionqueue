@@ -1,18 +1,25 @@
 
-var FunctionQueue = function(maxCallsPerPeriod, periodLengthSeconds) {
+var FunctionQueue = function(maxCallsPerPeriod, periodLengthSeconds, maxFrequency) {
+    console.log("creating FunctionQueue instance with params ", maxCallsPerPeriod, periodLengthSeconds, maxFrequency);
     this.maxCallsPerPeriod = maxCallsPerPeriod;
     if (periodLengthSeconds) {
-        this.periodLengthSeconds = 60;
+        this.periodLengthSeconds = periodLengthSeconds;
     }
     else {
-        this.periodLengthSeconds = periodLengthSeconds;
+        this.periodLengthSeconds = 60;
     }
     this.callsThisPeriod = 0;
     this.totalCalls = 0;
     this.secondsThisPeriod = 0;
     this.fnQueue = [];
     this.started = false;
-    this.interval = 1000;
+    if (maxFrequency) {
+        this.maxFrequency = maxFrequency;
+    }
+    else {
+        this.maxFrequency = 5; // run no more than once every 5s
+    }
+    this.earliestNextCall = this.periodLengthSeconds;
 };
 
 FunctionQueue.prototype = {
@@ -48,15 +55,18 @@ FunctionQueue.prototype = {
                 self.secondsThisPeriod = 0;
                 self.callsThisPeriod = 0;
             }
-            console.log('running secondsThisPeriod ' + self.secondsThisPeriod + ' callsThisPeriod ' + self.callsThisPeriod + ' maxCallsPerPeriod ' + self.maxCallsPerPeriod + ' totalCalls ' + self.totalCalls);
+            console.log('running -- secondsThisPeriod ' + self.secondsThisPeriod + ' callsThisPeriod ' + self.callsThisPeriod);
+            console.log('running -- maxCallsPerPeriod ' + self.maxCallsPerPeriod + ' totalCalls ' + self.totalCalls);
+            console.log('running -- earliestNextCall ' + self.earliestNextCall + ' periodLengthSeconds ' + self.periodLengthSeconds);
             if (self.fnQueue.length > 0) {
-                if (self.callsThisPeriod < self.maxCallsPerPeriod) {
+                if (self.callsThisPeriod < self.maxCallsPerPeriod && self.secondsThisPeriod < self.earliestNextCall) {
                     self.callsThisPeriod++;
                     self.totalCalls++;
+                    self.earliestNextCall = self.secondsThisPeriod + self.maxFrequency;
                     (self.fnQueue.shift())();
                 }
             }
-        }, self.interval);
+        }, 1000); // run every second
     }
 };
 

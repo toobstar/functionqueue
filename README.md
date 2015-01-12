@@ -23,4 +23,4 @@ A small library providing utility methods to queue and rate limit JavaScript fun
 
 ## Release History
 
-* 0.0.3 Initial release
+* 0.0.4 Initial release
